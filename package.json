@@ -1,5 +1,12 @@
 {
   "devDependencies": {
     "prisma": "^5.22.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "prisma-client": "^0.0.0"
   }
 }
