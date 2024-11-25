@@ -1,25 +1,21 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const seedProducts = async () => {
+const seed = async () => {
+  const products = Array.from({ length: 20 }, (_, i) => ({
+    title: `Product ${i + 1}`,
+    description: `Description for Product ${i + 1}`,
+    price: (i + 1) * 10,
+  }));
+
   try {
-    const products = Array.from({ length: 20 }, (_, i) => ({
-      title: `Product ${i + 1}`,
-      description: `This is the description for Product ${i + 1}`,
-      price: (Math.random() * 100).toFixed(2), 
-    }));
-
-   
-    await prisma.product.createMany({
-      data: products,
-    });
-
-    console.log('Seeding completed!');
+    await prisma.product.createMany({ data: products });
+    console.log('Database seeded with products!');
+    process.exit(0);
   } catch (error) {
-    console.error('Error seeding the database:', error);
-  } finally {
-    await prisma.$disconnect();
+    console.error('Error seeding database:', error);
+    process.exit(1);
   }
 };
 
-seedProducts();
+seed();
